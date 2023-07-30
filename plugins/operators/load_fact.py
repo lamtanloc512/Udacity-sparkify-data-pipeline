@@ -11,8 +11,8 @@ class LoadFactOperator(BaseOperator):
     def __init__(self,
                  redshift_conn_id='',
                  table='',
-                 SQLquery='',
-                 Truncate='',
+                 SQLquery,
+                 Truncate,
                  *args, **kwargs):
 
         super(LoadFactOperator, self).__init__(*args, **kwargs)
@@ -26,10 +26,8 @@ class LoadFactOperator(BaseOperator):
         redshift_Hook = PostgresHook(self.redS_conn_id)
         if self.Truncate == True:
             self.log.info(f'Start truncate statement on table {self.table}')
-
-        redshift_Hook.run(f'TRUNCATE TABLE {self.table_name}')
-        self.log.info(
-            f"Start Query to load data into Fact Table {self.table} ")
-
+            redshift_Hook.run(f'TRUNCATE TABLE {self.table_name}')
+            
+        self.log.info(f"Start insert data into Fact Table {self.table} ")
         redshift_Hook.run(f"INSERT INTO {self.table} {self.SQLquery}")
-        self.log.info(f"Finish load fact Table {self.table}  ")
+        self.log.info(f"Finished insert fact Table {self.table}  ")

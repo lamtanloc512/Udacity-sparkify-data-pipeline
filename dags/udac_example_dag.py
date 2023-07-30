@@ -74,7 +74,12 @@ with DAG('udac_example_dag',
     )
 
     load_user_dimension_table = LoadDimensionOperator(
-        task_id='Load_user_dim_table')
+        task_id='Load_user_dim_table',
+        redshift_conn_id='redshift',
+        SQLquery=SqlQueries.user_table_insert,
+        table="users",
+        Truncate=False
+    )
 
     load_song_dimension_table = LoadDimensionOperator(
         task_id='Load_song_dim_table')
