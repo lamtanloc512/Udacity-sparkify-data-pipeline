@@ -1,0 +1,7 @@
+.conda
+.vscode
+nohup.out
+airflow-webserver.pid
+**__pycache__**
+logs
+docker-compose.yaml
