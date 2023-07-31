@@ -1,81 +1,82 @@
-CREATE TABLE IF NOT EXISTS public.artists (
-artistid varchar(256) NOT NULL,
-name varchar(256),
-location varchar(256),
-lattitude numeric(18,0),
-longitude numeric(18,0));
+CREATE TABLE IF NOT EXISTS PUBLIC.ARTISTS (
+    ARTISTID VARCHAR(256) NOT NULL,
+    NAME VARCHAR(256),
+    LOCATION VARCHAR(256),
+    LATTITUDE NUMERIC(18, 0),
+    LONGITUDE NUMERIC(18, 0)
+);
 
+CREATE TABLE IF NOT EXISTS PUBLIC.SONGPLAYS (
+    PLAYID VARCHAR(32),
+    START_TIME TIMESTAMP,
+    USERID INT4,
+    LEVEL VARCHAR(256),
+    SONGID VARCHAR(256),
+    ARTISTID VARCHAR(256),
+    SESSIONID INT4,
+    LOCATION VARCHAR(256),
+    USER_AGENT VARCHAR(256),
+    CONSTRAINT SONGPLAYS_PKEY PRIMARY KEY (PLAYID)
+);
 
-CREATE TABLE IF NOT EXISTS public.songplays (
-playid varchar(32) ,
-start_time timestamp ,
-userid int4,
-level varchar(256),
-songid varchar(256),
-artistid varchar(256),
-sessionid int4,
-location varchar(256),
-user_agent varchar(256),
-CONSTRAINT songplays_pkey PRIMARY KEY (playid));
+CREATE TABLE IF NOT EXISTS PUBLIC.SONGS (
+    SONGID VARCHAR(256) NOT NULL,
+    TITLE VARCHAR(256),
+    ARTISTID VARCHAR(256),
+    YEAR INT4,
+    DURATION NUMERIC(18, 0),
+    CONSTRAINT SONGS_PKEY PRIMARY KEY (SONGID)
+);
 
+CREATE TABLE IF NOT EXISTS PUBLIC.STAGING_EVENTS (
+    ARTIST VARCHAR(256),
+    AUTH VARCHAR(256),
+    FIRSTNAME VARCHAR(256),
+    GENDER VARCHAR(256),
+    ITEMINSESSION INT4,
+    LASTNAME VARCHAR(256),
+    LENGTH NUMERIC(18, 0),
+    LEVEL VARCHAR(256),
+    LOCATION VARCHAR(256),
+    METHOD VARCHAR(256),
+    PAGE VARCHAR(256),
+    REGISTRATION NUMERIC(18, 0),
+    SESSIONID INT4,
+    SONG VARCHAR(256),
+    STATUS INT4,
+    TS INT8,
+    USERAGENT VARCHAR(256),
+    USERID INT4
+);
 
-CREATE TABLE IF NOT EXISTS public.songs (
-songid varchar(256) NOT NULL,
-title varchar(256),
-artistid varchar(256),
-year int4,
-duration numeric(18,0),
-CONSTRAINT songs_pkey PRIMARY KEY (songid));
+CREATE TABLE IF NOT EXISTS PUBLIC.STAGING_SONGS (
+    NUM_SONGS INT4,
+    ARTIST_ID VARCHAR(256),
+    ARTIST_NAME VARCHAR(256),
+    ARTIST_LATITUDE NUMERIC(18, 0),
+    ARTIST_LONGITUDE NUMERIC(18, 0),
+    ARTIST_LOCATION VARCHAR(256),
+    SONG_ID VARCHAR(256),
+    TITLE VARCHAR(256),
+    DURATION NUMERIC(18, 0),
+    YEAR INT4
+);
 
+CREATE TABLE IF NOT EXISTS PUBLIC.USERS (
+    USERID INT4 NOT NULL,
+    FIRST_NAME VARCHAR(256),
+    LAST_NAME VARCHAR(256),
+    GENDER VARCHAR(256),
+    LEVEL VARCHAR(256),
+    CONSTRAINT USERS_PKEY PRIMARY KEY (USERID)
+);
 
-CREATE TABLE IF NOT EXISTS public.staging_events (
-artist varchar(256),
-auth varchar(256),
-firstname varchar(256),
-gender varchar(256),
-iteminsession int4,
-lastname varchar(256),
-length numeric(18,0),
-level varchar(256),
-location varchar(256),
-method varchar(256),
-page varchar(256),
-registration numeric(18,0),
-sessionid int4,
-song varchar(256),
-status int4,
-ts int8,
-useragent varchar(256),
-userid int4);
-
-
-CREATE TABLE IF NOT EXISTS public.staging_songs (
-num_songs int4,
-artist_id varchar(256),
-artist_name varchar(256),
-artist_latitude numeric(18,0),
-artist_longitude numeric(18,0),
-artist_location varchar(256),
-song_id varchar(256),
-title varchar(256),
-duration numeric(18,0),
-year int4);
-
-
-CREATE TABLE IF NOT EXISTS public.users (
-userid int4 NOT NULL,
-first_name varchar(256),
-last_name varchar(256),
-gender varchar(256),
-level varchar(256),
-CONSTRAINT users_pkey PRIMARY KEY (userid));
-
-
-CREATE TABLE IF NOT EXISTS time (
-start_time timestamp PRIMARY KEY,
-hour varchar,
-day varchar,
-week varchar,
-month varchar,
-year varchar,
-weekday varchar);
+CREATE TABLE IF NOT EXISTS TIME (
+    START_TIME TIMESTAMP PRIMARY KEY,
+    HOUR VARCHAR,
+    DAY VARCHAR,
+    WEEK VARCHAR,
+    MONTH VARCHAR,
+    YEAR VARCHAR,
+    WEEKDAY VARCHAR
+);

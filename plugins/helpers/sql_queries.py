@@ -1,7 +1,8 @@
 class SqlQueries:
-    songplay_table_insert = ("""
+    songplay_table_insert = """
+        INSERT INTO songplays
         SELECT
-            md5(events.sessionid || events.start_time) songplay_id,
+            COALESCE(md5(events.sessionid || events.start_time), '') as playid,
             events.start_time, 
             events.userid, 
             events.level, 
@@ -17,26 +18,30 @@ class SqlQueries:
         ON events.song = songs.title
         AND events.artist = songs.artist_name
         AND events.length = songs.duration
-    """)
+    """
 
-    user_table_insert = ("""
-        SELECT distinct userid, firstname, lastname, gender, level
+    user_table_insert = """
+        INSERT INTO users                 
+        SELECT distinct COALESCE(userid, 0) as userid, firstname, lastname, gender, level
         FROM staging_events
         WHERE page='NextSong'
-    """)
+    """
 
-    song_table_insert = ("""
-        SELECT distinct song_id, title, artist_id, year, duration
+    song_table_insert = """
+        INSERT INTO songs
+        SELECT distinct COALESCE(song_id, ''), title, artist_id, year, duration
         FROM staging_songs
-    """)
+    """
 
-    artist_table_insert = ("""
-        SELECT distinct artist_id, artist_name, artist_location, artist_latitude, artist_longitude
+    artist_table_insert = """
+        INSERT INTO artists                           
+        SELECT distinct COALESCE(artist_id, ''), artist_name, artist_location, artist_latitude, artist_longitude
         FROM staging_songs
-    """)
+    """
 
-    time_table_insert = ("""
+    time_table_insert = """
+        INSERT INTO time                    
         SELECT start_time, extract(hour from start_time), extract(day from start_time), extract(week from start_time), 
                extract(month from start_time), extract(year from start_time), extract(dayofweek from start_time)
         FROM songplays
-    """)
+    """

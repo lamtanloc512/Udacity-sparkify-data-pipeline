@@ -26,16 +26,12 @@ class StageToRedshiftOperator(BaseOperator):
         self.json_path = json_path
 
     def execute(self, context):
-        """
-        Get AWS credential and copy s3 data to redshift staging tables
-        """
-
         aws_hook = AwsHook(self.aws_credientials_id)
         credentials = aws_hook.get_credentials()
         redshift = PostgresHook(self.redshift_conn_id)
 
         self.s3_path = self.s3_path.format(**context)
-        s3_path = f"s3://{self.s3_bucket}/{self.s3_path}"
+        s3_path = f"s3://{self.s3_bucket}/{self.s3_path}/"
 
         self.log.info(
             f'Start staging table {self.table} to RedShift')
