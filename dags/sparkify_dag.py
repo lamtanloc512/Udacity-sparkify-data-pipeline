@@ -24,7 +24,7 @@ default_args = {
 }
 
 
-with DAG('udac_example_dag',
+with DAG('sparkify_dag',
          default_args=default_args,
          description='Load and transform data in Redshift with Airflow',
          schedule_interval='0 * * * *'
@@ -111,10 +111,19 @@ with DAG('udac_example_dag',
 
 # Dependencies
 start_operator >> create_table
+
 create_table >> [stage_events_to_redshift, stage_songs_to_redshift]
+
 [stage_events_to_redshift, stage_songs_to_redshift] >> load_songplays_table
-load_songplays_table >> [load_user_dimension_table, load_song_dimension_table,
-                         load_artist_dimension_table, load_time_dimension_table]
-[load_user_dimension_table, load_song_dimension_table, load_artist_dimension_table,
-    load_time_dimension_table] >> run_quality_checks >> end_operator
+
+load_songplays_table >> [load_user_dimension_table,
+                         load_song_dimension_table,
+                         load_artist_dimension_table,
+                         load_time_dimension_table]
+
+[load_user_dimension_table,
+ load_song_dimension_table,
+ load_artist_dimension_table,
+ load_time_dimension_table] >> run_quality_checks >> end_operator
+
 run_quality_checks >> end_operator

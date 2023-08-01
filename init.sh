@@ -14,8 +14,10 @@ pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}
 
 pip install psycopg2
 
+pip install apache-airflow-providers-amazon
+
 airflow db init
 
 airflow airflow users create --username admin --firstname Lucas --lastname Lam --role Admin --email lucas@example.org
 
-exit 0
+exit 0;
