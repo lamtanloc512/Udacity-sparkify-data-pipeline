@@ -33,7 +33,7 @@ with DAG('sparkify_dag_clone',
     start_operator = DummyOperator(task_id='Begin_execution')
 
     # Define the path to the SQL file
-    sql_file_path = os.path.join(os.path.dirname('.'), 'sql/create_tables.sql')
+    sql_file_path = '/sql/create_tables.sql'
 
     create_table = CreateTablesOperator(
         task_id='Creating_tables',

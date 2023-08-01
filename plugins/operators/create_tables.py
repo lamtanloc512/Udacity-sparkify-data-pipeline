@@ -6,8 +6,8 @@ class CreateTablesOperator(BaseOperator):
     ui_color = '#358145'
 
     def __init__(self,
-                 postgres_conn_id="",
-                 sql_file="",
+                 postgres_conn_id,
+                 sql_file,
                  *args, **kwargs):
         super(CreateTablesOperator, self).__init__(*args, **kwargs)
 
