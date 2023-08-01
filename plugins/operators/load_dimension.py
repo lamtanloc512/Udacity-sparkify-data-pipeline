@@ -23,6 +23,7 @@ class LoadDimensionOperator(BaseOperator):
 
     def execute(self, context):
         redshift = PostgresHook(self.redshift_conn_id)
+        
         if self.Truncate:
             self.log.info(f'Start truncate statement on table {self.table}')
             redshift.run(f'TRUNCATE TABLE {self.table}')

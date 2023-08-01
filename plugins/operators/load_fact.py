@@ -23,6 +23,7 @@ class LoadFactOperator(BaseOperator):
 
     def execute(self, context):
         redshift = PostgresHook(self.redshift_conn_id)
+        
         if self.Truncate == True:
             self.log.info(
                 f"Start truncate statement on table {self.table}")

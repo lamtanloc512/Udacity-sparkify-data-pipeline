@@ -25,6 +25,7 @@ class DataQualityOperator(BaseOperator):
             
             if len(records) < 1 or len(records[0]) < 1:
                 raise ValueError(f"Check data quality failed {table} : no rows")
+            
             if records[0][0] < 1:
                 raise ValueError(f"Check data quality failed {table}: no rows")
             
